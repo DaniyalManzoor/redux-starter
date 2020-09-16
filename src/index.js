@@ -1,5 +1,6 @@
 import store from "./customStore";
-// import { bugRemoved, bugAdded, bugResolved } from "./actions";
+import * as actions from "./actions";
+
 // import store from "./store";
 
 // this function a store changes help us in Rerender
@@ -17,4 +18,10 @@ import store from "./customStore";
 
 // console.log(store.getState());
 
-console.log(store);
+// Create new Store
+
+store.dispatch(actions.bugAdded("Bug 1"));
+store.subscribe(() => {
+  console.log("Store Changed!");
+});
+console.log(store.getState());
