@@ -1,4 +1,4 @@
-import { bugRemoved, bugAdded } from "./actions";
+import { bugRemoved, bugAdded, bugResolved } from "./actions";
 import store from "./store";
 
 //this function a store changes help us in Rerender
@@ -8,8 +8,10 @@ const unsubscribe = store.subscribe(() => {
 
 store.dispatch(bugAdded("Bug 1"));
 
+store.dispatch(bugResolved(1));
+
 unsubscribe();
 
-store.dispatch(bugRemoved(1));
+//store.dispatch(bugRemoved(1));
 
 console.log(store.getState());
