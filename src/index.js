@@ -1,7 +1,7 @@
-import store from "./customStore";
-import * as actions from "./actions";
+import store from "./store";
 
-// import store from "./store";
+// import store from "./customStore";
+// import * as actions from "./actions";
 
 // this function a store changes help us in Rerender
 // const unsubscribe = store.subscribe(() => {
@@ -20,8 +20,8 @@ import * as actions from "./actions";
 
 // Create new Store
 
-store.dispatch(actions.bugAdded("Bug 1"));
-store.subscribe(() => {
-  console.log("Store Changed!");
-});
-console.log(store.getState());
+// store.dispatch(actions.bugAdded("Bug 1"));
+// store.subscribe(() => {
+//   console.log("Store Changed!");
+// });
+// console.log(store.getState());
