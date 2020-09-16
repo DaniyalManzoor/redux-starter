@@ -1,17 +1,20 @@
-import { bugRemoved, bugAdded, bugResolved } from "./actions";
-import store from "./store";
+import store from "./customStore";
+// import { bugRemoved, bugAdded, bugResolved } from "./actions";
+// import store from "./store";
 
-//this function a store changes help us in Rerender
-const unsubscribe = store.subscribe(() => {
-  console.log("Store Change", store.getState());
-});
+// this function a store changes help us in Rerender
+// const unsubscribe = store.subscribe(() => {
+// console.log("Store Change", store.getState());
+// });
 
-store.dispatch(bugAdded("Bug 1"));
+// store.dispatch(bugAdded("Bug 1"));
 
-store.dispatch(bugResolved(1));
+// store.dispatch(bugResolved(1));
 
-unsubscribe();
+// unsubscribe();
 
-//store.dispatch(bugRemoved(1));
+// store.dispatch(bugRemoved(1));
 
-console.log(store.getState());
+// console.log(store.getState());
+
+console.log(store);
