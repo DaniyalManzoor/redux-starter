@@ -1,3 +1,5 @@
+import * as actions from "./actionType";
+
 import store from "./store";
 
 //this function a store changes help us in Rerender
@@ -6,7 +8,7 @@ const unsubscribe = store.subscribe(() => {
 });
 
 store.dispatch({
-  type: "bugAdded",
+  type: actions.BUG_ADDED,
   payload: {
     description: "Bug1",
   },
@@ -15,7 +17,7 @@ store.dispatch({
 unsubscribe();
 
 store.dispatch({
-  type: "bugRemoved",
+  type: actions.BUG_REMOVED,
   payload: {
     id: 1,
   },
