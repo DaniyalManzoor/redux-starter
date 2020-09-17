@@ -1,7 +1,10 @@
-import store from "./store";
+import configureStore from "./store/configureStore";
 
 // import store from "./customStore";
-import * as actions from "./actions";
+import * as actions from "./store/bugs";
+// * for all import is good practices only for small module
+
+const store = configureStore();
 
 // this function a store changes help us in Rerender
 // const unsubscribe = store.subscribe(() => {
