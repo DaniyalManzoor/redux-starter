@@ -20,8 +20,9 @@ store.dispatch(bugAdded({ description: "Bug 2" }));
 store.dispatch(bugAdded({ description: "Bug 3" }));
 store.dispatch(bugResolved({ id: 1 }));
 
-const unResolvedBugs = selectUnresolvedBugs(store.getState());
-console.log(unResolvedBugs);
+const x = selectUnresolvedBugs(store.getState());
+const y = selectUnresolvedBugs(store.getState());
+console.log(x === y);
 
 // store.dispatch(bugResolved(1));
 

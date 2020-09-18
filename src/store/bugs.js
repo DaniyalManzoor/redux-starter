@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { createSelector } from "reselect";
 // Duck Design Patterns
 // -- move into store folder
 // -- move Action types, Action Creator, reducer in single file
@@ -31,5 +31,19 @@ export default slice.reducer;
 
 //Selector Function
 //take state return computed state
-export const selectUnresolvedBugs = (state) =>
-  state.entities.bugs.filter((bug) => !bug.resolved);
+
+// memoization or memoisation is an optimization technique
+// used primarily to speed up computer programs by storing
+// the results of expensive function calls and returning the
+// cached result when the same inputs occur again
+
+// bugs => getunsolved bugs from the cache
+// f(x) => y {input: x output: y}
+// install reselect for implementing
+
+export const selectUnresolvedBugs = createSelector(
+  // we can also pass multiple selector
+  //state => state.entities.projects
+  (state) => state.entities.bugs,
+  (bugs) => bugs.filter((bug) => !bug.resolved) //(bugs, project)
+);
