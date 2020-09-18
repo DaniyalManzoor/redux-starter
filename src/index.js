@@ -1,12 +1,22 @@
 import configureStore from "./store/configureStore";
 
 // import store from "./customStore";
-import { bugAdded, bugResolved, selectUnresolvedBugs } from "./store/bugs";
+import {
+  bugAdded,
+  bugResolved,
+  bugAssignedToUser,
+  selectUnresolvedBugs,
+  selectBugsByUser,
+} from "./store/bugs";
 import { projectAdded } from "./store/projects";
+import { userAdded } from "./store/users";
 
 // * for all import is good practices only for small module
 
 const store = configureStore();
+store.dispatch(userAdded({ name: "user 1" }));
+store.dispatch(userAdded({ name: "user 2" }));
+store.dispatch(userAdded({ name: "user 3" }));
 
 store.dispatch(projectAdded({ name: "Project 1" }));
 
@@ -18,11 +28,15 @@ store.dispatch(projectAdded({ name: "Project 1" }));
 store.dispatch(bugAdded({ description: "Bug 1" }));
 store.dispatch(bugAdded({ description: "Bug 2" }));
 store.dispatch(bugAdded({ description: "Bug 3" }));
+store.dispatch(bugAssignedToUser({ bugId: 1, userId: 2 }));
 store.dispatch(bugResolved({ id: 1 }));
 
-const x = selectUnresolvedBugs(store.getState());
-const y = selectUnresolvedBugs(store.getState());
-console.log(x === y);
+const bugs = selectBugsByUser(1)(store.getState());
+console.log(bugs);
+
+// const x = selectUnresolvedBugs(store.getState());
+// const y = selectUnresolvedBugs(store.getState());
+// console.log(x === y);
 
 // store.dispatch(bugResolved(1));
 
