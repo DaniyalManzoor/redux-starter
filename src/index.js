@@ -31,7 +31,7 @@ store.dispatch(bugAdded({ description: "Bug 3" }));
 store.dispatch(bugAssignedToUser({ bugId: 1, userId: 2 }));
 store.dispatch(bugResolved({ id: 1 }));
 
-const bugs = selectBugsByUser(1)(store.getState());
+const bugs = selectBugsByUser(2)(store.getState());
 console.log(bugs);
 
 // const x = selectUnresolvedBugs(store.getState());
