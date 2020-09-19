@@ -13,10 +13,9 @@
 
 // SNA like DNA haha for memorizing
 
-const logger = (store) => (next) => (action) => {
-  console.log("store", store);
-  console.log("next", next);
-  console.log("action", action);
+const logger = (param) => (store) => (next) => (action) => {
+  console.log("Logging", param);
+  next(action);
 };
 
 export default logger;
