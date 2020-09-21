@@ -18,7 +18,6 @@ const store = configureStore();
 store.dispatch((dispatch, getState) => {
   // Call an API
   // When the promise is resolved => dispatch() --> result
-  dispatch({ type: "bugsReceived", bugs: [1, 2, 3] });
-  console.log(getState());
+  dispatch({ type: "Error", payload: { message: "An error occurred" } });
   //If the promise is rejected => dispatch() --> error
 });
