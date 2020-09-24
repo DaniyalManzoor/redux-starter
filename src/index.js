@@ -7,6 +7,5 @@ store.dispatch(
   actions.apiCallBegen({
     url: "/bugs",
     onSuccess: "bugsRecieved",
-    onError: actions.apiCallFailed.type,
   })
 );
