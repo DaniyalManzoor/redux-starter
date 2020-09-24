@@ -1,16 +1,5 @@
 import axios from "axios";
 
-const action = {
-  type: "apiCallBegan",
-  payload: {
-    url: "/bugs",
-    method: "get",
-    data: {},
-    onSuccess: "bugsRecieved",
-    onError: "apiCallFailed",
-  },
-};
-
 const api = ({ dispatch }) => (next) => async (action) => {
   if (action.type !== "apiCallBegan") return next(action);
 
@@ -18,7 +7,7 @@ const api = ({ dispatch }) => (next) => async (action) => {
   //calling api
   try {
     const response = await axios.request({
-      baseURL: "http://localhost:t9001/api",
+      baseURL: "http://localhost:9001/api",
       url,
       method,
       data,
