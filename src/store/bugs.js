@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
-import { apiCallBegen } from "./api";
+import { apiCallBegan } from "./api";
 import moment from "moment";
 
 // Duck Design Patterns
@@ -8,8 +8,6 @@ import moment from "moment";
 // -- move Action types, Action Creator, reducer in single file
 // -- action creator is always export
 // -- reducer is always default export
-
-let lastId = 0;
 
 const slice = createSlice({
   name: "bugs",
@@ -31,11 +29,7 @@ const slice = createSlice({
     },
 
     bugAdded: (bugs, action) => {
-      bugs.list.push({
-        id: ++lastId,
-        desciprtion: action.payload.id,
-        resolved: false,
-      });
+      bugs.list.push(action.payload);
     },
     bugResolved: (bugs, action) => {
       const index = bugs.list.findIndex((bug) => bug.id === action.payload.id);
@@ -72,7 +66,7 @@ export const loadBugs = () => (dispatch, getState) => {
   if (diffInMinutes < 10) return;
 
   dispatch(
-    apiCallBegen({
+    apiCallBegan({
       url,
       onStart: bugsRequested.type,
       onSuccess: bugsRecieved.type,
@@ -80,6 +74,14 @@ export const loadBugs = () => (dispatch, getState) => {
     })
   );
 };
+
+export const addBug = (bug) =>
+  apiCallBegan({
+    url,
+    method: "post",
+    data: bug,
+    onSuccess: bugAdded.type,
+  });
 
 //Selector Function
 //take state return computed state
