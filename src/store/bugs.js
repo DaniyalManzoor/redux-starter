@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import { apiCallBegen } from "./api";
+import moment from "moment";
 
 // Duck Design Patterns
 // -- move into store folder
@@ -22,6 +23,7 @@ const slice = createSlice({
     bugsRecieved: (bugs, action) => {
       bugs.list = action.payload;
       bugs.loading = false;
+      bugs.lastFetch = Date.now();
     },
 
     bugsRequestFailed: (bugs, action) => {
@@ -58,14 +60,26 @@ export const {
 export default slice.reducer;
 
 // Action Creators
+
 const url = "./bugs";
-export const loadBugs = () =>
-  apiCallBegen({
-    url,
-    onStart: bugsRequested.type,
-    onSuccess: bugsRecieved.type,
-    onError: bugsRequestFailed.type,
-  });
+// () => fn(dispatch getState)
+export const loadBugs = () => (dispatch, getState) => {
+  const { lastFetch } = getState().entities.bugs;
+  console.log(lastFetch);
+
+  const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
+
+  if (diffInMinutes < 10) return;
+
+  dispatch(
+    apiCallBegen({
+      url,
+      onStart: bugsRequested.type,
+      onSuccess: bugsRecieved.type,
+      onError: bugsRequestFailed.type,
+    })
+  );
+};
 
 //Selector Function
 //take state return computed state
