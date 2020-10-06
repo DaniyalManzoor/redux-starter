@@ -28,9 +28,15 @@ const slice = createSlice({
       bugs.loading = false;
     },
 
+    // command  -> event
+    // addBug   -> bugAdded
+
     bugAdded: (bugs, action) => {
       bugs.list.push(action.payload);
     },
+
+    // resolveBug -> BugResolved
+
     bugResolved: (bugs, action) => {
       const index = bugs.list.findIndex((bug) => bug.id === action.payload.id);
       bugs.list[index].resolved = true;
@@ -83,6 +89,17 @@ export const addBug = (bug) =>
     onSuccess: bugAdded.type,
   });
 
+export const resolveBug = (id) =>
+  apiCallBegan({
+    // Bugs
+    // Patch bugs/1
+    // Using put we update entire resourse
+    // Using patch we update one or more properties
+    url: url + "/" + id,
+    method: "patch",
+    data: { resolved: true },
+    onSuccess: bugResolved.type,
+  });
 //Selector Function
 //take state return computed state
 
