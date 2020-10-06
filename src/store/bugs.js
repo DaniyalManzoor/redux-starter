@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
+import { apiCallBegen } from "./api";
+
 // Duck Design Patterns
 // -- move into store folder
 // -- move Action types, Action Creator, reducer in single file
@@ -11,7 +13,12 @@ let lastId = 0;
 const slice = createSlice({
   name: "bugs",
   initialState: { list: [], loading: false, lastFetch: null },
+
   reducers: {
+    bugsRecieved: (bugs, action) => {
+      bugs.list = action.payload;
+    },
+
     bugAdded: (bugs, action) => {
       bugs.list.push({
         id: ++lastId,
@@ -31,8 +38,21 @@ const slice = createSlice({
   },
 });
 
-export const { bugAdded, bugResolved, bugAssignedToUser } = slice.actions;
+export const {
+  bugAdded,
+  bugResolved,
+  bugAssignedToUser,
+  bugsRecieved,
+} = slice.actions;
 export default slice.reducer;
+
+// Action Creators
+const url = "./bugs";
+export const loadBugs = () =>
+  apiCallBegen({
+    url,
+    onSuccess: bugsRecieved.type,
+  });
 
 //Selector Function
 //take state return computed state
